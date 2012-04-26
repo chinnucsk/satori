@@ -19,3 +19,19 @@ binary extend type::
     invalid_input
     > satori:convert({binary, {1, 5}, {16#20, 16#7E}, [$,]}, <<"\0\1\3">>).
     invalid_input
+
+integer type::
+
+    > satori:convert({integer, {1, 32}}, <<"12">>). 
+    12
+    > satori:convert({integer, {1, 32}}, <<"33">>).
+    invalid_input
+    > satori:convert({integer, {1, 32}}, <<"a">>). 
+    invalid_input
+
+atom type::
+
+    > satori:convert({atom, [spam]}, <<"spam">>).
+    spam
+    > satori:convert({atom, [spam]}, <<"egg">>). 
+    invalid_input
