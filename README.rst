@@ -2,7 +2,7 @@
 satori
 #####################
 
-satori is type base binary convertor.
+satori is type base binary converter.
 
 binary type::
 
