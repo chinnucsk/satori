@@ -2,6 +2,8 @@
 satori
 #####################
 
+.. image:: https://secure.travis-ci.org/voluntas/satori.png?branch=develop
+
 satori is type base binary converter.
 
 binary type::
