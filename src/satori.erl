@@ -1,5 +1,7 @@
 -module(satori).
 
+-include_lib("eunit/include/eunit.hrl").
+
 -export([convert/2]).
 
 -type regexp_type() :: {regexp, iodata()}.
@@ -46,6 +48,20 @@ convert({binary, {Min, Max}, {Start, End}, ListOfChar}, Binary) ->
                     invalid_input
             end;
         _Binary ->
+            invalid_input
+    end;
+convert({binary, Size}, <<"0b", Rest/binary>>) when is_integer(Size) andalso Size >= 0 ->
+    try
+        Bin = binary_to_list(Rest),
+        Int = list_to_integer(Bin, 2),
+        case length(Bin) of
+            Length when Length =< Size ->
+                <<Int:Size>>;
+            _ ->
+                invalid_input
+        end
+    catch
+        _:_ ->
             invalid_input
     end;
 convert({integer, {Min, Max}}, Binary) when is_integer(Min), is_integer(Max) ->
