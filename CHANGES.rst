@@ -1,3 +1,7 @@
+- 0.2.2
+
+    - fix binary type convert
+
 - 0.2.1
 
     - add binary digits converter
