@@ -21,6 +21,9 @@ convert_binary_test_() ->
         {"failure: binary size long",
             ?_assertEqual(invalid_input, convert({binary, {3, 3}}, <<"1234">>))},
 
+        {"sfailure: not begin '0b'",
+            ?_assertEqual(invalid_input, convert({binary, 1}, <<"0x1">>))},
+
         {"success",
             ?_assertEqual(<<1:1>>, convert({binary, 1}, <<"0b1">>))},
         {"success",
