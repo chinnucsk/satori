@@ -64,6 +64,8 @@ convert({binary, Size}, <<"0b", Rest/binary>>) when is_integer(Size) andalso Siz
         _:_ ->
             invalid_input
     end;
+convert({binary, _Size}, _Binary) ->
+    invalid_input;
 convert({integer, {Min, Max}}, Binary) when is_integer(Min), is_integer(Max) ->
     case string:to_integer(binary_to_list(Binary)) of
         {error, _Reason} ->
