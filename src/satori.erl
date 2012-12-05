@@ -88,6 +88,27 @@ convert({atom, ListOfAtom}, Binary) ->
         _:_ ->
             invalid_input
     end;
+convert(ipaddr, Binary) ->
+    case convert(ipv4addr, Binary) of
+        invalid_input ->
+            convert(ipv6addr, Binary);
+        Address ->
+            Address
+    end;
+convert(ipv4addr, Binary) ->
+    case inet_parse:ipv4strict_address(binary_to_list(Binary)) of
+        {ok, Address} ->
+            Address;
+        {error, _Reason} ->
+            invalid_input
+    end;
+convert(ipv6addr, Binary) ->
+    case inet_parse:ipv6strict_address(binary_to_list(Binary)) of
+        {ok, Address} ->
+            Address;
+        {error, _Reason} ->
+            invalid_input
+    end;
 convert(Type, Binary) ->
     error({unknown_type, Type, Binary}).
 

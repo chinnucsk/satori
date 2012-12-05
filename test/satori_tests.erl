@@ -80,3 +80,17 @@ convert_atom_test_() ->
             ?_assertEqual(invalid_input, convert({atom, [spam]},<<"bacon">>))}
     ].
 
+convert_ipaddr_test_() ->
+    [
+        {"success ipv4",
+            ?_assertEqual({192,0,2,0}, convert(ipaddr, <<"192.0.2.0">>))},
+        {"success ipv6",
+            ?_assertEqual({8193,3512,0,0,0,0,0,0}, convert(ipaddr, <<"2001:DB8::">>))},
+        {"failure: comma",
+            ?_assertEqual(invalid_input, convert(ipaddr,<<"192,0,2,0">>))},
+        {"failure: integer",
+            ?_assertEqual(invalid_input, convert(ipaddr,<<"192020">>))}
+    ].
+
+
+
