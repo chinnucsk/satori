@@ -9,6 +9,7 @@
 -type binary_extend_type() :: {binary, {non_neg_integer(), non_neg_integer()}, {byte(), byte()}, [byte()]}.
 -type integer_type() :: {integer, {non_neg_integer(), non_neg_integer()}}.
 -type atom_type() :: {atom, [atom()]}.
+-type ipaddr_type() :: ipaddr | ipv4addr | ipv6addr.
 
 -type type() :: regexp_type() | binary_type() | binary_extend_type() | integer_type() | atom_type().
 
