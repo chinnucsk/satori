@@ -11,7 +11,7 @@
 -type atom_type() :: {atom, [atom()]}.
 -type ipaddr_type() :: ipaddr | ipv4addr | ipv6addr.
 
--type type() :: regexp_type() | binary_type() | binary_extend_type() | integer_type() | atom_type().
+-type type() :: regexp_type() | binary_type() | binary_extend_type() | integer_type() | atom_type() | ipaddr_type().
 
 -spec convert(type(), binary()) -> invalid_input | any().
 %% convert({regexp, RE}, Binary) ->
