@@ -17,11 +17,9 @@ compile:
 	@./rebar -C ${REBAR_CONFIG} compile skip_deps=true
 	@./rebar -C ${REBAR_CONFIG} xref skip_deps=true
 
-# covertool has warnings, so compile first
 deps:
 	@./rebar -C ${REBAR_CONFIG} update-deps
 	@./rebar -C ${REBAR_CONFIG} get-deps
-	cd deps/covertool && ../../rebar compile
 	@./rebar -C ${REBAR_CONFIG} compile
 
 clean:

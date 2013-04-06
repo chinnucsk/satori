@@ -9,8 +9,9 @@
 -type binary_extend_type() :: {binary, {non_neg_integer(), non_neg_integer()}, {byte(), byte()}, [byte()]}.
 -type integer_type() :: {integer, {non_neg_integer(), non_neg_integer()}}.
 -type atom_type() :: {atom, [atom()]}.
+-type ipaddr_type() :: ipaddr | ipv4addr | ipv6addr.
 
--type type() :: regexp_type() | binary_type() | binary_extend_type() | integer_type() | atom_type().
+-type type() :: regexp_type() | binary_type() | binary_extend_type() | integer_type() | atom_type() | ipaddr_type().
 
 -spec convert(type(), binary()) -> invalid_input | any().
 %% convert({regexp, RE}, Binary) ->
@@ -86,6 +87,27 @@ convert({atom, ListOfAtom}, Binary) ->
         end
     catch
         _:_ ->
+            invalid_input
+    end;
+convert(ipaddr, Binary) ->
+    case convert(ipv4addr, Binary) of
+        invalid_input ->
+            convert(ipv6addr, Binary);
+        Address ->
+            Address
+    end;
+convert(ipv4addr, Binary) ->
+    case inet_parse:ipv4strict_address(binary_to_list(Binary)) of
+        {ok, Address} ->
+            Address;
+        {error, _Reason} ->
+            invalid_input
+    end;
+convert(ipv6addr, Binary) ->
+    case inet_parse:ipv6strict_address(binary_to_list(Binary)) of
+        {ok, Address} ->
+            Address;
+        {error, _Reason} ->
             invalid_input
     end;
 convert(Type, Binary) ->
